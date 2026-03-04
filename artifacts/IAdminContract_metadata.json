@@ -1,0 +1,65 @@
+{
+	"compiler": {
+		"version": "0.8.31+commit.fd3a2265"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "isRegistered",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/IAdminContract.sol": "IAdminContract"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/IAdminContract.sol": {
+			"keccak256": "0xd82971f158bb4190ed10cbc2f30df55a34788c00526a12de73474613650b8aad",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5e9f57d06e5f453b7d16d70cc4f3cee3a051b878f61b4735617fc943a6d3226f",
+				"dweb:/ipfs/QmShVDnzHPBXqfQDzmGZoxWoqKc34cAi3C4sajHgxFLnPb"
+			]
+		}
+	},
+	"version": 1
+}

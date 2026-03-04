@@ -1,0 +1,199 @@
+{
+	"compiler": {
+		"version": "0.8.31+commit.fd3a2265"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_adminContract",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "receiver",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "cid",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "DataShared",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "adminContract",
+				"outputs": [
+					{
+						"internalType": "contract IAdminContract",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getMySharedData",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "cid",
+								"type": "string"
+							},
+							{
+								"internalType": "bytes",
+								"name": "encryptedKey",
+								"type": "bytes"
+							},
+							{
+								"internalType": "address",
+								"name": "sender",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "timestamp",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct DataSharingContract.SharedData[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "receiver",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "cid",
+						"type": "string"
+					},
+					{
+						"internalType": "bytes",
+						"name": "encryptedKey",
+						"type": "bytes"
+					}
+				],
+				"name": "shareData",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"constructor": {
+					"params": {
+						"_adminContract": "Adresse des deploybaten AdminContract."
+					}
+				},
+				"getMySharedData()": {
+					"details": "Zugriff ist ausschließlich über msg.sender möglich – kein Fremdzugriff.",
+					"returns": {
+						"_0": "Array von SharedData-Structs (cid, encryptedKey, sender, timestamp)."
+					}
+				},
+				"shareData(address,string,bytes)": {
+					"details": "- Sender UND Empfänger müssen registriert sein.         - Der encryptedKey ist der symmetrische Schlüssel,           der mit dem Public Key des Empfängers verschlüsselt wurde (Off-Chain).         - Kein Klartext-Schlüssel wird gespeichert.",
+					"params": {
+						"cid": "IPFS Content Identifier der verschlüsselten Datei.",
+						"encryptedKey": "Verschlüsselter symmetrischer Schlüssel (bytes).",
+						"receiver": "Ethereum-Adresse des Empfängers."
+					}
+				}
+			},
+			"stateVariables": {
+				"sharedDataFor": {
+					"details": "Mapping: Empfänger-Adresse => Liste aller für ihn geteilten Datenpakete. Zugriff ist nur per msg.sender möglich (kein fremder Zugriff)."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"getMySharedData()": {
+					"notice": "Gibt alle Datenpakete zurück, die für msg.sender freigegeben wurden."
+				},
+				"shareData(address,string,bytes)": {
+					"notice": "Teilt verschlüsselte Daten mit einem Empfänger."
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/datasharingcontract.sol": "DataSharingContract"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/IAdminContract.sol": {
+			"keccak256": "0xd82971f158bb4190ed10cbc2f30df55a34788c00526a12de73474613650b8aad",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5e9f57d06e5f453b7d16d70cc4f3cee3a051b878f61b4735617fc943a6d3226f",
+				"dweb:/ipfs/QmShVDnzHPBXqfQDzmGZoxWoqKc34cAi3C4sajHgxFLnPb"
+			]
+		},
+		"contracts/datasharingcontract.sol": {
+			"keccak256": "0x485292747d0e5a0439f4e20b959a1bdec93ca3ec5956888290362b7edd399dbf",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5ed2a1bb60d92f465267852fbfa48372d1d9f9a185e0c2291ceb194d7c764774",
+				"dweb:/ipfs/Qma9av1BhqVH6vXADWKb1CZCaWb17ZMTiuxeG2QnZCfAns"
+			]
+		}
+	},
+	"version": 1
+}

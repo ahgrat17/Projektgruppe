@@ -1,0 +1,173 @@
+{
+	"compiler": {
+		"version": "0.8.31+commit.fd3a2265"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "publicKey",
+						"type": "bytes"
+					}
+				],
+				"name": "UserRegistered",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "admin",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "getPublicKey",
+				"outputs": [
+					{
+						"internalType": "bytes",
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "isRegistered",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes",
+						"name": "publicKey",
+						"type": "bytes"
+					}
+				],
+				"name": "registerUser",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"getPublicKey(address)": {
+					"params": {
+						"user": "Die Ethereum-Adresse des Nutzers."
+					},
+					"returns": {
+						"_0": "Der gespeicherte Public Key (bytes)."
+					}
+				},
+				"isRegistered(address)": {
+					"params": {
+						"user": "Die zu prüfende Ethereum-Adresse."
+					},
+					"returns": {
+						"_0": "true, wenn registriert; sonst false."
+					}
+				},
+				"registerUser(address,bytes)": {
+					"details": "Nur der Admin darf diese Funktion aufrufen.",
+					"params": {
+						"publicKey": "Der öffentliche Schlüssel des Nutzers (z.B. EC-Punkt, PEM, etc.)",
+						"user": "Die Ethereum-Adresse des Nutzers."
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"getPublicKey(address)": {
+					"notice": "Gibt den Public Key einer registrierten Adresse zurück."
+				},
+				"isRegistered(address)": {
+					"notice": "Prüft, ob eine Adresse registriert ist."
+				},
+				"registerUser(address,bytes)": {
+					"notice": "Registriert einen neuen Nutzer mit seinem Public Key."
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/admincontract.sol": "AdminContract"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/admincontract.sol": {
+			"keccak256": "0xbfa41fd25c930c0bd9d2c11e08e8d86f3fdb8f56791d916904c411577f02ff99",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8227c16d366cf961ae4068c6b886b4551ab7f05fc69846bed2b0706dece7f4ca",
+				"dweb:/ipfs/QmeJRDrz1A8ukDqyySPENJCV9ibCAWBH7ESVcuWaZiG4kr"
+			]
+		}
+	},
+	"version": 1
+}
