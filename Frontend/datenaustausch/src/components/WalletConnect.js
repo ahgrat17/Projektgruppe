@@ -1,21 +1,5 @@
-// ============================================================
-// components/WalletConnect.js
-// MetaMask-Verbindung und Netzwerkprüfung
-// ============================================================
-
 import React from "react";
 
-/**
- * WalletConnect-Komponente
- * @param {object}   props
- * @param {string}   props.account           - Verbundene Adresse (null wenn nicht verbunden)
- * @param {boolean}  props.isConnecting      - Loading-State
- * @param {boolean}  props.isCorrectNetwork  - Ist das Netzwerk Sepolia?
- * @param {string}   props.networkError      - Fehlermeldung bei falschem Netzwerk
- * @param {function} props.connectWallet     - Wallet verbinden
- * @param {function} props.disconnectWallet  - Wallet trennen
- * @param {function} props.switchToSepolia   - Zu Sepolia wechseln
- */
 export default function WalletConnect({
   account,
   isConnecting,
@@ -36,7 +20,6 @@ export default function WalletConnect({
       </div>
 
       <div className="wallet-right">
-        {/* Netzwerk-Warnung */}
         {account && !isCorrectNetwork && (
           <div className="network-warning">
             <span>Falsches Netzwerk</span>
@@ -46,7 +29,6 @@ export default function WalletConnect({
           </div>
         )}
 
-        {/* Verbunden */}
         {account ? (
           <div className="wallet-connected">
             <span className="dot-green" />
