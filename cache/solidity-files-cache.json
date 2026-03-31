@@ -1,0 +1,115 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/ahlamechihi/Downloads/Projektgruppe-main/contracts/IAdminContract.sol": {
+      "lastModificationDate": 1774902908360,
+      "contentHash": "ee5a81c16c4c9d3883f97bfad618732e",
+      "sourceName": "contracts/IAdminContract.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "IAdminContract"
+      ]
+    },
+    "/Users/ahlamechihi/Downloads/Projektgruppe-main/contracts/datasharingcontract.sol": {
+      "lastModificationDate": 1774902908360,
+      "contentHash": "8603ffd3f68a7286855ae4040c04dda1",
+      "sourceName": "contracts/datasharingcontract.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IAdminContract.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "DataSharingContract"
+      ]
+    },
+    "/Users/ahlamechihi/Downloads/Projektgruppe-main/contracts/admincontract.sol": {
+      "lastModificationDate": 1774902908360,
+      "contentHash": "541b37c35e17b5ecd5b87042e4eaf05d",
+      "sourceName": "contracts/admincontract.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "AdminContract"
+      ]
+    }
+  }
+}
