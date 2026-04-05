@@ -15,6 +15,7 @@ import {
   deleteStoredPrivateKey,
 } from "../utils/crypto";
 import { translateContractError } from "../utils/errorMessages";
+import { Lock, AlertTriangle, CheckCircle, InfoCircle } from "./Icons";
 
 export default function RegisterUser({ signer, account, onKeyPairGenerated }) {
   const [status,        setStatus]        = useState(null);   // Statusmeldung { type, text }
@@ -161,15 +162,15 @@ export default function RegisterUser({ signer, account, onKeyPairGenerated }) {
   return (
     <div className="card">
       <div className="card-header">
-        <span className="card-header-icon" aria-hidden="true">🔑</span>
+        <span className="card-header-icon"><Lock /></span>
         <h2>Konto & Schlüssel</h2>
       </div>
 
       <div className="card-body">
         {status && (
           <div className={`status-banner status-${status.type}`} role={status.type === "error" ? "alert" : "status"}>
-            <span className="status-banner-icon" aria-hidden="true">
-              {status.type === "error" ? "⚠️" : status.type === "success" ? "✅" : "ℹ️"}
+            <span className="status-banner-icon">
+              {status.type === "error" ? <AlertTriangle /> : status.type === "success" ? <CheckCircle /> : <InfoCircle />}
             </span>
             <span>{status.text}</span>
           </div>

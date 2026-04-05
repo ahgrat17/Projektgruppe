@@ -16,6 +16,7 @@ import {
 import { downloadFromIPFS } from "../utils/ipfs";
 import { shortenAddress } from "../utils/format";
 import { translateContractError } from "../utils/errorMessages";
+import { Download, AlertTriangle, InfoCircle, FileIcon, Inbox } from "./Icons";
 
 export default function ReceiveData({ signer, privateKey }) {
   const [sharedItems,   setSharedItems]   = useState([]);    // Empfangene Datenpakete
@@ -106,7 +107,7 @@ export default function ReceiveData({ signer, privateKey }) {
   return (
     <div className="card">
       <div className="card-header">
-        <span className="card-header-icon" aria-hidden="true">📥</span>
+        <span className="card-header-icon"><Download /></span>
         <h2>Meine Datenpakete</h2>
       </div>
 
@@ -118,21 +119,21 @@ export default function ReceiveData({ signer, privateKey }) {
 
         {!privateKey && (
           <div className="status-banner status-error" role="alert">
-            <span className="status-banner-icon" aria-hidden="true">⚠️</span>
+            <span className="status-banner-icon"><AlertTriangle /></span>
             <span>Kein privater Schlüssel vorhanden. Gehe zum Tab „Zugang" und entsperre deinen Schlüssel.</span>
           </div>
         )}
 
         {statusMsg && (
           <div className="status-banner status-info" role="status">
-            <span className="status-banner-icon" aria-hidden="true">ℹ️</span>
+            <span className="status-banner-icon"><InfoCircle /></span>
             <span>{statusMsg}</span>
           </div>
         )}
 
         {error && (
           <div className="status-banner status-error" role="alert">
-            <span className="status-banner-icon" aria-hidden="true">⚠️</span>
+            <span className="status-banner-icon"><AlertTriangle /></span>
             <span>{error}</span>
           </div>
         )}
@@ -147,7 +148,7 @@ export default function ReceiveData({ signer, privateKey }) {
         {/* Leerer Zustand */}
         {hasLoaded && sharedItems.length === 0 && !isLoadingList && (
           <div className="empty-state">
-            <div className="empty-state-icon" aria-hidden="true">📭</div>
+            <div className="empty-state-icon"><Inbox width="36" height="36" /></div>
             <div className="empty-state-text">Keine Datenpakete vorhanden.</div>
             <div className="empty-state-hint">Sobald jemand eine Datei mit dir teilt, erscheint sie hier.</div>
           </div>
@@ -159,7 +160,7 @@ export default function ReceiveData({ signer, privateKey }) {
             {sharedItems.map(item => (
               <div key={item.id} className="data-item">
                 <div className="data-item-header">
-                  <span className="data-item-icon" aria-hidden="true">📄</span>
+                  <span className="data-item-icon"><FileIcon /></span>
                   <div className="data-item-meta">
                     <div className="data-cid">
                       <a href={`https://ipfs.io/ipfs/${item.cid}`} target="_blank" rel="noreferrer" className="link"

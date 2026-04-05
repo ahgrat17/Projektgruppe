@@ -8,6 +8,7 @@ import { ethers } from "ethers";
 import { AdminContractABI, ADMIN_CONTRACT_ADDRESS } from "../abi/AdminContractABI";
 import { shortenAddress } from "../utils/format";
 import { translateContractError } from "../utils/errorMessages";
+import { AlertTriangle, CheckCircle, InfoCircle, User, Settings } from "./Icons";
 
 export default function AdminPanel({ signer }) {
   // --- Registrierung ---
@@ -137,8 +138,8 @@ export default function AdminPanel({ signer }) {
   // Wiederverwendbare Statusanzeige mit Icon
   const StatusBanner = ({ status }) => status ? (
     <div className={`status-banner status-${status.type}`} role={status.type === "error" ? "alert" : "status"}>
-      <span className="status-banner-icon" aria-hidden="true">
-        {status.type === "error" ? "⚠️" : status.type === "success" ? "✅" : "ℹ️"}
+      <span className="status-banner-icon">
+        {status.type === "error" ? <AlertTriangle /> : status.type === "success" ? <CheckCircle /> : <InfoCircle />}
       </span>
       <span>{status.text}</span>
     </div>
@@ -150,7 +151,7 @@ export default function AdminPanel({ signer }) {
       {/* Karte: Nutzer registrieren */}
       <div className="card">
         <div className="card-header">
-          <span className="card-header-icon" aria-hidden="true">👤</span>
+          <span className="card-header-icon"><User /></span>
           <h2>Nutzer registrieren</h2>
         </div>
         <div className="card-body">
@@ -183,7 +184,7 @@ export default function AdminPanel({ signer }) {
       {/* Karte: Nutzer verwalten */}
       <div className="card">
         <div className="card-header">
-          <span className="card-header-icon" aria-hidden="true">⚙️</span>
+          <span className="card-header-icon"><Settings /></span>
           <h2>Nutzer verwalten</h2>
         </div>
         <div className="card-body">

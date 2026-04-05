@@ -10,26 +10,28 @@ import ShareData    from "./components/ShareData";
 import ReceiveData  from "./components/ReceiveData";
 import SharedByMe   from "./components/SharedByMe";
 import AdminPanel   from "./components/AdminPanel";
+import * as Icons   from "./components/Icons";
 import { AdminContractABI, ADMIN_CONTRACT_ADDRESS } from "./abi/AdminContractABI";
 import { shortenAddress } from "./utils/format";
 import "./App.css";
 
 // Tabs die jeder Nutzer sieht
 const BASE_TABS = [
-  { id: "register", label: "Zugang",       icon: "🔑" },
-  { id: "share",    label: "Datei senden",  icon: "📤" },
-  { id: "shared",   label: "Freigaben",     icon: "📋" },
-  { id: "receive",  label: "Empfang",       icon: "📥" },
+  { id: "register", label: "Zugang",       icon: <Icons.Lock /> },
+  { id: "share",    label: "Datei senden",  icon: <Icons.Upload /> },
+  { id: "shared",   label: "Freigaben",     icon: <Icons.ClipboardList /> },
+  { id: "receive",  label: "Empfang",       icon: <Icons.Download /> },
 ];
 
 // Admin-Tab wird nur angezeigt wenn die Wallet die Admin-Adresse ist
-const ADMIN_TAB = { id: "admin", label: "Admin", icon: "🛡️" };
+const ADMIN_TAB = { id: "admin", label: "Admin", icon: <Icons.Shield /> };
 
 export default function App() {
-  const [activeTab,  setActiveTab]  = useState("register");
-  const [privateKey, setPrivateKey] = useState(null);    // RSA Private Key (nur im RAM, nie persistiert)
-  const [isAdmin,    setIsAdmin]    = useState(false);
-  const [mobileNav,  setMobileNav]  = useState(false);   // Hamburger-Menü offen/zu
+  const [activeTab,    setActiveTab]    = useState("register");
+  const [privateKey,   setPrivateKey]   = useState(null);    // RSA Private Key (nur im RAM, nie persistiert)
+  const [isAdmin,      setIsAdmin]      = useState(false);
+  const [mobileNav,    setMobileNav]    = useState(false);   // Hamburger-Menü offen/zu
+  const [walletCopied, setWalletCopied] = useState(false);   // Kopier-Feedback im Wallet-Badge
 
   const {
     account, signer, isConnecting, isCorrectNetwork,
@@ -57,6 +59,16 @@ export default function App() {
   // Callback von RegisterUser – speichert den Private Key im App-State
   // Wird an ReceiveData weitergegeben zum Entschlüsseln
   const handleKeyPairGenerated = (privKey) => setPrivateKey(privKey);
+
+  // Vollständige Wallet-Adresse in die Zwischenablage kopieren
+  const copyWalletAddress = async () => {
+    if (!account) return;
+    try {
+      await navigator.clipboard.writeText(account);
+      setWalletCopied(true);
+      setTimeout(() => setWalletCopied(false), 2000);
+    } catch {}
+  };
 
   const activeLabel = tabs.find(t => t.id === activeTab)?.label ?? "Navigation";
 
@@ -86,9 +98,17 @@ export default function App() {
 
         <div className="wallet-right">
           {account ? (
-            <div className="wallet-pill" role="status" aria-label={`Wallet verbunden: ${short}`}>
+            <div className="wallet-pill" role="status" aria-label={`Wallet verbunden: ${account}`}>
               <span className="wallet-dot" aria-hidden="true" />
               {short}
+              <button
+                className={`wallet-copy-btn${walletCopied ? " wallet-copy-btn--copied" : ""}`}
+                onClick={copyWalletAddress}
+                aria-label={walletCopied ? "Adresse kopiert" : "Wallet-Adresse kopieren"}
+                title={walletCopied ? "Kopiert!" : "Adresse kopieren"}
+              >
+                {walletCopied ? <Icons.Check /> : <Icons.Copy />}
+              </button>
             </div>
           ) : (
             <button
@@ -148,7 +168,7 @@ export default function App() {
           {/* Warnung wenn Private Key fehlt (außer auf Register/Admin-Tab) */}
           {!privateKey && activeTab !== "register" && activeTab !== "admin" && (
             <div className="status-banner status-error" role="alert" style={{ marginBottom: 16 }}>
-              <span className="status-banner-icon" aria-hidden="true">⚠️</span>
+              <span className="status-banner-icon"><Icons.AlertTriangle /></span>
               <span>Kein privater Schlüssel in dieser Sitzung. Bitte zuerst im Tab „Zugang" deinen Schlüssel entsperren.</span>
             </div>
           )}
@@ -183,7 +203,7 @@ export default function App() {
                   className={`tab ${activeTab === tab.id ? "tab-active" : ""}`}
                   onClick={() => switchTab(tab.id)}
                 >
-                  <span className="tab-icon" aria-hidden="true">{tab.icon}</span>
+                  <span className="tab-icon">{tab.icon}</span>
                   {tab.label}
                 </button>
               ))}

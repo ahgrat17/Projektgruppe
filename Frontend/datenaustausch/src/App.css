@@ -369,8 +369,9 @@ body {
 }
 
 .tab-icon {
-  font-size: 15px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 /* ── Cards ────────────────────────────────────────────────────── */
@@ -401,7 +402,6 @@ body {
   border-radius: 8px;
   background: rgba(0, 212, 255, 0.1);
   color: #0e4d92;
-  font-size: 14px;
   flex-shrink: 0;
 }
 
@@ -668,8 +668,8 @@ textarea.input-field {
 
 .status-banner-icon {
   flex-shrink: 0;
-  font-size: 15px;
-  line-height: 1.3;
+  display: flex;
+  align-items: center;
 }
 
 .status-info {
@@ -889,7 +889,6 @@ textarea.input-field {
   flex-shrink: 0;
   margin-top: 1px;
   color: #0097b2;
-  font-size: 14px;
 }
 
 .data-item-meta {
@@ -926,9 +925,11 @@ textarea.input-field {
 }
 
 .empty-state-icon {
-  font-size: 36px;
+  display: flex;
+  justify-content: center;
   margin-bottom: 12px;
   opacity: 0.5;
+  color: #94a3b8;
 }
 
 .empty-state-text {
@@ -1126,4 +1127,35 @@ textarea.input-field {
 .status-inactive {
   color: #dc2626;
   font-weight: 600;
+}
+
+/* ── Wallet-Kopier-Button ─────────────────────────────────────── */
+
+.wallet-copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  padding: 3px;
+  border-radius: 4px;
+  margin-left: 2px;
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+
+.wallet-copy-btn:hover {
+  color: #475569;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.wallet-copy-btn:focus-visible {
+  outline: 2px solid #00d4ff;
+  outline-offset: 1px;
+}
+
+.wallet-copy-btn--copied {
+  color: #22c55e;
 }

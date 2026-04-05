@@ -15,6 +15,7 @@ import {
 import { uploadToIPFS } from "../utils/ipfs";
 import { shortenAddress } from "../utils/format";
 import { translateContractError } from "../utils/errorMessages";
+import { Upload, AlertTriangle } from "./Icons";
 
 // Labels für die Fortschrittsanzeige
 const STEPS = [
@@ -161,7 +162,7 @@ export default function ShareData({ signer, account }) {
   return (
     <div className="card">
       <div className="card-header">
-        <span className="card-header-icon" aria-hidden="true">📤</span>
+        <span className="card-header-icon"><Upload /></span>
         <h2>Datei teilen</h2>
       </div>
 
@@ -270,7 +271,7 @@ export default function ShareData({ signer, account }) {
 
         {error && (
           <div className="status-banner status-error" role="alert">
-            <span className="status-banner-icon" aria-hidden="true">⚠️</span>
+            <span className="status-banner-icon"><AlertTriangle /></span>
             <span>{error}</span>
           </div>
         )}

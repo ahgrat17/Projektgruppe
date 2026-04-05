@@ -7,6 +7,7 @@ import { AdminContractABI, ADMIN_CONTRACT_ADDRESS } from "../abi/AdminContractAB
 import { DataSharingContractABI, DATA_SHARING_CONTRACT_ADDRESS } from "../abi/DataSharingContractABI";
 import { shortenAddress } from "../utils/format";
 import { translateContractError } from "../utils/errorMessages";
+import { ClipboardList, AlertTriangle, InfoCircle, FileIcon, Folder } from "./Icons";
 
 export default function SharedByMe({ signer, account }) {
   const [sharedItems, setSharedItems] = useState([]);
@@ -94,7 +95,7 @@ export default function SharedByMe({ signer, account }) {
   return (
     <div className="card">
       <div className="card-header">
-        <span className="card-header-icon" aria-hidden="true">📋</span>
+        <span className="card-header-icon"><ClipboardList /></span>
         <h2>Von mir geteilte Dateien</h2>
       </div>
 
@@ -106,14 +107,14 @@ export default function SharedByMe({ signer, account }) {
 
         {statusMsg && (
           <div className="status-banner status-info" role="status">
-            <span className="status-banner-icon" aria-hidden="true">ℹ️</span>
+            <span className="status-banner-icon"><InfoCircle /></span>
             <span>{statusMsg}</span>
           </div>
         )}
 
         {error && (
           <div className="status-banner status-error" role="alert">
-            <span className="status-banner-icon" aria-hidden="true">⚠️</span>
+            <span className="status-banner-icon"><AlertTriangle /></span>
             <span>{error}</span>
           </div>
         )}
@@ -127,7 +128,7 @@ export default function SharedByMe({ signer, account }) {
 
         {showEmpty && (
           <div className="empty-state">
-            <div className="empty-state-icon" aria-hidden="true">📂</div>
+            <div className="empty-state-icon"><Folder width="36" height="36" /></div>
             <div className="empty-state-text">Du hast noch keine Dateien geteilt.</div>
             <div className="empty-state-hint">Sobald du eine Datei teilst, erscheint sie hier.</div>
           </div>
@@ -138,7 +139,7 @@ export default function SharedByMe({ signer, account }) {
             {sharedItems.map(item => (
               <div key={item.key} className="data-item" style={{ opacity: item.active ? 1 : 0.55 }}>
                 <div className="data-item-header">
-                  <span className="data-item-icon" aria-hidden="true">📄</span>
+                  <span className="data-item-icon"><FileIcon /></span>
                   <div className="data-item-meta">
                     <div className="data-cid">
                       <a href={`https://ipfs.io/ipfs/${item.cid}`} target="_blank" rel="noreferrer" className="link"
