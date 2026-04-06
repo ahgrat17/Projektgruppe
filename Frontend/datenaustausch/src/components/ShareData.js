@@ -13,6 +13,7 @@ import {
   encryptAESKeyWithPublicKey, packEncryptedBlob, packFileWithName,
 } from "../utils/crypto";
 import { uploadToIPFS } from "../utils/ipfs";
+import { startTimer, stopTimer, logTimingSummary } from "../utils/timing";
 import { shortenAddress } from "../utils/format";
 import { translateContractError } from "../utils/errorMessages";
 import { Upload, AlertTriangle } from "./Icons";
@@ -98,22 +99,33 @@ export default function ShareData({ signer, account }) {
     setResult(null);
 
     try {
+      const totalStart = startTimer();
+      const steps = [];
+      let t;
+
       // 1. Datei einlesen + Dateinamen einbetten
       setCurrentStep(1);
+      t = startTimer();
       const fileBuffer = await selectedFile.arrayBuffer();
       const payload    = packFileWithName(selectedFile.name, fileBuffer);
+      steps.push({ step: "Datei lesen", duration: stopTimer(t, "ShareData", "Datei lesen") });
 
       // 2. Zufälligen AES-Key erzeugen
       setCurrentStep(2);
+      t = startTimer();
       const aesKey = await generateAESKey();
+      steps.push({ step: "AES-Key generieren", duration: stopTimer(t, "ShareData", "AES-Key generieren") });
 
       // 3. Payload verschlüsseln
       setCurrentStep(3);
+      t = startTimer();
       const { iv, ciphertext } = await encryptData(aesKey, payload);
       const encryptedBlob      = packEncryptedBlob(iv, ciphertext);
+      steps.push({ step: "Datei verschlüsseln", duration: stopTimer(t, "ShareData", "Datei verschlüsseln") });
 
       // 4. Public Key des Empfängers vom Contract holen
       setCurrentStep(4);
+      t = startTimer();
       const adminContract = new ethers.Contract(ADMIN_CONTRACT_ADDRESS, AdminContractABI, signer);
       const isRegistered  = await adminContract.isRegistered(receiver);
       const isActive      = await adminContract.isActive(receiver);
@@ -123,21 +135,31 @@ export default function ShareData({ signer, account }) {
       const publicKeyHex   = await adminContract.getPublicKey(receiver);
       const cleanHex       = publicKeyHex.startsWith("0x") ? publicKeyHex.slice(2) : publicKeyHex;
       const publicKeyBytes = new Uint8Array(cleanHex.match(/.{1,2}/g).map(b => parseInt(b, 16)));
+      steps.push({ step: "Public Key abrufen", duration: stopTimer(t, "ShareData", "Public Key abrufen") });
 
       // 5. AES-Key mit dem RSA Public Key des Empfängers verschlüsseln
       setCurrentStep(5);
+      t = startTimer();
       const rawAesKey       = await exportAESKey(aesKey);
       const encryptedAesKey = await encryptAESKeyWithPublicKey(rawAesKey, publicKeyBytes);
+      steps.push({ step: "AES-Key verschlüsseln", duration: stopTimer(t, "ShareData", "AES-Key verschlüsseln") });
 
       // 6. Verschlüsselten Blob zu IPFS hochladen
       setCurrentStep(6);
+      t = startTimer();
       const cid = await uploadToIPFS(encryptedBlob, selectedFile.name);
+      steps.push({ step: "IPFS-Upload", duration: stopTimer(t, "ShareData", "IPFS-Upload") });
 
       // 7. On-Chain: CID + verschlüsselter Key im DataSharingContract speichern
       setCurrentStep(7);
+      t = startTimer();
       const dsContract = new ethers.Contract(DATA_SHARING_CONTRACT_ADDRESS, DataSharingContractABI, signer);
       const tx = await dsContract.shareData(receiver, cid, encryptedAesKey);
       await tx.wait();
+      steps.push({ step: "On-Chain teilen", duration: stopTimer(t, "ShareData", "On-Chain teilen") });
+
+      const totalDuration = performance.now() - totalStart;
+      logTimingSummary("ShareData", steps, totalDuration);
 
       setResult({ cid, txHash: tx.hash });
       setCurrentStep(0);

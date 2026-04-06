@@ -14,6 +14,7 @@ import {
   unpackEncryptedBlob, unpackFileWithName, hexToBuffer,
 } from "../utils/crypto";
 import { downloadFromIPFS } from "../utils/ipfs";
+import { startTimer, stopTimer, logTimingSummary } from "../utils/timing";
 import { shortenAddress } from "../utils/format";
 import { translateContractError } from "../utils/errorMessages";
 import { Download, AlertTriangle, InfoCircle, FileIcon, Inbox } from "./Icons";
@@ -73,18 +74,28 @@ export default function ReceiveData({ signer, privateKey }) {
     setError(null);
 
     try {
+      const totalStart = startTimer();
+      const steps = [];
+      let t;
+
       // AES-Key entschlüsseln (RSA mit eigenem Private Key)
+      t = startTimer();
       const encryptedKeyBytes = hexToBuffer(item.encryptedKey);
       const rawAesKey = await decryptAESKeyWithPrivateKey(encryptedKeyBytes, privateKey);
       const aesKey    = await importAESKey(rawAesKey);
+      steps.push({ step: "AES-Key entschlüsseln", duration: stopTimer(t, "ReceiveData", "AES-Key entschlüsseln") });
 
       // Verschlüsselte Datei von IPFS laden
+      t = startTimer();
       const encryptedBlob       = await downloadFromIPFS(item.cid);
       const { iv, ciphertext }  = unpackEncryptedBlob(encryptedBlob);
+      steps.push({ step: "IPFS-Download", duration: stopTimer(t, "ReceiveData", "IPFS-Download") });
 
       // Datei entschlüsseln + Dateinamen extrahieren
+      t = startTimer();
       const decryptedBuffer     = await decryptData(aesKey, iv, ciphertext);
       const { filename, fileBuffer } = unpackFileWithName(decryptedBuffer);
+      steps.push({ step: "Datei entschlüsseln", duration: stopTimer(t, "ReceiveData", "Datei entschlüsseln") });
 
       // Browser-Download auslösen
       const blob = new Blob([fileBuffer], { type: "application/octet-stream" });
@@ -94,6 +105,9 @@ export default function ReceiveData({ signer, privateKey }) {
       a.download = filename ?? `decrypted_${item.cid.slice(0, 8)}`;
       a.click();
       URL.revokeObjectURL(url);
+
+      const totalDuration = performance.now() - totalStart;
+      logTimingSummary("ReceiveData", steps, totalDuration);
     } catch (err) {
       console.error("Entschlüsselung fehlgeschlagen:", err);
       setError(translateContractError(err));
