@@ -7,8 +7,8 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
 // --- Konfiguration (anpassbar) ---
-const GAS_PRICE_GWEI = 20;
-const ETH_USD_PRICE = 3500;
+const GAS_PRICE_GWEI = 0.72;
+const ETH_USD_PRICE = 2132;
 const ITERATIONS = 5;
 
 // --- Hilfsfunktionen ---
