@@ -35,11 +35,6 @@ npm install
 1. IPFS Desktop starten
 2. In den Einstellungen unter **API** folgende CORS-Header setzen:
    - `Access-Control-Allow-Origin`: `http://localhost:3000`
-   - Alternativ ueber das Terminal:
-     ```bash
-     ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["http://localhost:3000"]'
-     ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST", "GET"]'
-     ```
    - Danach IPFS Desktop neu starten
 
 ### 4. MetaMask einrichten
