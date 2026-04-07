@@ -11,7 +11,7 @@ Folgende Software muss installiert sein:
 - **IPFS Desktop** — [https://docs.ipfs.tech/install/ipfs-desktop](https://docs.ipfs.tech/install/ipfs-desktop)
 - **Git** — [https://git-scm.com](https://git-scm.com)
 
-## Schnellstart (ohne Redeployment)
+## Start (ohne Redeployment)
 
 Aktuell sind die Contracts bereits deployed. Falls sie neu deployed werden, müssen die Adressen in Frontend/datenaustausch/src/abi aktualisiert werden.
 
