@@ -1,6 +1,6 @@
 # SecureShare
 
-Sichere Datenaustausch-Plattform auf der Ethereum Sepolia Blockchain mit IPFS und Ende-zu-Ende-Verschluesselung.
+Sichere Datenaustausch-Plattform auf der Ethereum Sepolia Blockchain mit IPFS und Ende-zu-Ende-Verschlüsselung.
 
 ## Voraussetzungen
 
@@ -49,7 +49,7 @@ cd Frontend/datenaustausch
 npm start
 ```
 
-Die App oeffnet sich unter [http://localhost:3000](http://localhost:3000).
+Die App öffnet sich unter [http://localhost:3000](http://localhost:3000).
 
 ### 6. App nutzen
 
