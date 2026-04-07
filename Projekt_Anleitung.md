@@ -15,27 +15,22 @@ Folgende Software muss installiert sein:
 
 Aktuell sind die Contracts bereits deployed. Falls sie neu deployed werden, müssen die Adressen in Frontend/datenaustausch/src/abi aktualisiert werden.
 
-### 1. Repository klonen
+
+### 1. Backend-Abhaengigkeiten installieren
 
 ```bash
-git clone <REPO-URL>
 cd Projektgruppe
-```
-
-### 2. Backend-Abhaengigkeiten installieren
-
-```bash
 npm install
 ```
 
-### 3. Frontend-Abhaengigkeiten installieren
+### 2. Frontend-Abhaengigkeiten installieren
 
 ```bash
 cd Frontend/datenaustausch
 npm install
 ```
 
-### 4. IPFS Desktop konfigurieren
+### 3. IPFS Desktop konfigurieren
 
 1. IPFS Desktop starten
 2. In den Einstellungen unter **API** folgende CORS-Header setzen:
@@ -47,12 +42,12 @@ npm install
      ```
    - Danach IPFS Desktop neu starten
 
-### 5. MetaMask einrichten
+### 4. MetaMask einrichten
 
 1. MetaMask öffnen und zum **Sepolia Testnet** wechseln
 2. Sepolia-ETH besorgen (z.b: https://cloud.google.com/application/web3/faucet/ethereum/sepolia)
 
-### 6. Frontend starten
+### 5. Frontend starten
 
 ```bash
 cd Frontend/datenaustausch
@@ -61,7 +56,7 @@ npm start
 
 Die App oeffnet sich unter [http://localhost:3000](http://localhost:3000).
 
-### 7. App nutzen
+### 6. App nutzen
 
 1. Auf **"MetaMask verbinden"** klicken
 2. Im Tab **"Zugang"** registrieren und Schluessel generieren
